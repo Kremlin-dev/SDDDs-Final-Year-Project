@@ -1,0 +1,131 @@
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f6f9;
+}
+
+.container-fluid {
+    padding: 0;
+}
+
+.navbar {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.navbar-brand, .navbar-nav .nav-link {
+    color: #fff !important;
+}
+
+.sidebar {
+    background: #343a40;
+    padding: 0;
+    height: 100vh;
+    position: fixed;
+}
+
+.sidebar h2 {
+    color: #fff;
+    padding: 20px;
+    background: #007bff;
+    text-align: center;
+}
+
+.sidebar .nav-item .nav-link {
+    color: #ddd;
+    padding: 15px 20px;
+    display: block;
+}
+
+.sidebar .nav-item .nav-link.active {
+    color: #fff;
+    background: #007bff;
+}
+
+.main-content {
+    margin-left: 250px; /* Adjust according to sidebar width */
+    padding: 20px;
+}
+
+.table thead th {
+    background: #007bff;
+    color: #fff;
+}
+
+.table tbody tr:nth-child(even) {
+    background: #f2f2f2;
+}
+
+.pagination .page-item .page-link {
+    color: #007bff;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+}
+
+/* Modal */
+.modal-content {
+    background-color: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    background-color: #007bff;
+    color: #fff;
+    border-bottom: none;
+}
+
+.modal-title {
+    font-weight: bold;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+/* Form and Input */
+.form-control {
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Adjustments for smaller screens */
+.main-content {
+    padding: 20px;
+}
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+    }
+    .sidebar {
+        display: none;
+    }
+}
