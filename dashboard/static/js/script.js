@@ -3,6 +3,7 @@ const rowsPerPage = 10;
 document.addEventListener('DOMContentLoaded', () => {
     fetchData();
     setInterval(fetchData, 10000); 
+});
 
 function fetchData() {
     fetch('/api/data') 
@@ -17,7 +18,6 @@ function fetchData() {
 function updateTable(data) {
     const table = document.getElementById('userTable');
     table.innerHTML = ''; 
-
     const start = (currentPage - 1) * rowsPerPage;
     const end = start + rowsPerPage;
     const paginatedData = data.slice(start, end);
