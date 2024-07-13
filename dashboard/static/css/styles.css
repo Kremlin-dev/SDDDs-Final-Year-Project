@@ -1,4 +1,4 @@
-/* General Styles */
+
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #f4f6f9;
@@ -43,7 +43,7 @@ body {
 }
 
 .main-content {
-    margin-left: 250px; /* Adjust according to sidebar width */
+    margin-left: 250px;
     padding: 20px;
 }
 
@@ -66,7 +66,7 @@ body {
     color: #fff;
 }
 
-/* Modal */
+
 .modal-content {
     background-color: #fff;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
@@ -86,7 +86,7 @@ body {
     padding: 20px;
 }
 
-/* Form and Input */
+
 .form-control {
     margin-bottom: 10px;
     border-radius: 4px;
