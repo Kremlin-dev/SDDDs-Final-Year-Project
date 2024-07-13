@@ -2,11 +2,10 @@ let currentPage = 1;
 const rowsPerPage = 10;
 document.addEventListener('DOMContentLoaded', () => {
     fetchData();
-    setInterval(fetchData, 10000); // Fetch data every 10 seconds
-});
+    setInterval(fetchData, 10000); 
 
 function fetchData() {
-    fetch('/api/data') // Ensure this endpoint matches your Flask app
+    fetch('/api/data') 
         .then(response => response.json())
         .then(data => {
             updateTable(data);
@@ -17,7 +16,7 @@ function fetchData() {
 
 function updateTable(data) {
     const table = document.getElementById('userTable');
-    table.innerHTML = ''; // Clear the table
+    table.innerHTML = ''; 
 
     const start = (currentPage - 1) * rowsPerPage;
     const end = start + rowsPerPage;
@@ -37,7 +36,7 @@ function updateTable(data) {
 
 function setupPagination(data) {
     const pagination = document.getElementById('pagination');
-    pagination.innerHTML = ''; // Clear pagination
+    pagination.innerHTML = ''; 
 
     const pageCount = Math.ceil(data.length / rowsPerPage);
 
