@@ -42,11 +42,6 @@ body {
     background: #007bff;
 }
 
-.main-content {
-    margin-left: 250px;
-    padding: 20px;
-}
-
 .table thead th {
     background: #007bff;
     color: #fff;
@@ -117,10 +112,7 @@ body {
     background-color: #5a6268;
 }
 
-/* Adjustments for smaller screens */
-.main-content {
-    padding: 20px;
-}
+
 @media (max-width: 768px) {
     .main-content {
         margin-left: 0;
