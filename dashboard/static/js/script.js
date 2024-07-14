@@ -1,113 +1,116 @@
-let currentPage = 1;
-const rowsPerPage = 10;
 document.addEventListener('DOMContentLoaded', () => {
-    fetchData();
-    setInterval(fetchData, 10000); 
-});
+    const rowsPerPage = 3;
+    let currentPage = 1;
+    let userData = [];
 
-function fetchData() {
-    fetch('/api/data') 
-        .then(response => response.json())
-        .then(data => {
-            updateTable(data);
-            setupPagination(data);
-        })
-        .catch(error => console.error('Error fetching data:', error));
-}
+    function fetchData() {
+        fetch('/api/data')  
+            .then(response => response.json())
+            .then(data => {
+                userData = data;
+                displayTableData();
+                paginateTable();
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }
 
-function updateTable(data) {
-    const table = document.getElementById('userTable');
-    table.innerHTML = ''; 
-    const start = (currentPage - 1) * rowsPerPage;
-    const end = start + rowsPerPage;
-    const paginatedData = data.slice(start, end);
-
-    paginatedData.forEach(row => {
-        const newRow = table.insertRow();
-        newRow.insertCell(0).innerHTML = row.card_id;
-        newRow.insertCell(1).innerHTML = row.confidence;
-        newRow.insertCell(2).innerHTML = row.location;
-        newRow.insertCell(3).innerHTML = row.time_moved;
-        newRow.insertCell(4).innerHTML = row.drowsiness_state;
-        newRow.insertCell(5).innerHTML = row.contact;
-        newRow.insertCell(6).innerHTML = '<button class="btn btn-success" onclick="viewUser(\'' + row.card_id + '\')">View</button> <button class="btn btn-secondary" onclick="printRow(this)">Print</button>';
-    });
-}
-
-function setupPagination(data) {
-    const pagination = document.getElementById('pagination');
-    pagination.innerHTML = ''; 
-
-    const pageCount = Math.ceil(data.length / rowsPerPage);
-
-    for (let i = 1; i <= pageCount; i++) {
-        const pageItem = document.createElement('li');
-        pageItem.classList.add('page-item');
-        if (i === currentPage) {
-            pageItem.classList.add('active');
+    function displayTableData() {
+        const tableBody = document.getElementById('userTable');
+        tableBody.innerHTML = '';
+    
+        const start = (currentPage - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const paginatedData = userData.slice(start, end);
+    
+        for (const user of paginatedData) {
+            const row = tableBody.insertRow();
+            row.insertCell(0).textContent = user.car_id;
+            row.insertCell(1).textContent = user.contact; // Update to user.contact
+            row.insertCell(2).textContent = user.drowsiness_state;
+            row.insertCell(3).textContent = user.time_detected;
+            row.insertCell(4).textContent = user.drowsiness_duration_minutes; // Update to user.drowsiness_duration_minutes
+            row.insertCell(5).textContent = user.uptime_minutes; // Update to user.uptime_minutes
+    
+            const actionCell = row.insertCell(6);
+            const viewButton = document.createElement('button');
+            viewButton.textContent = 'View';
+            viewButton.className = 'btn btn-primary';
+            viewButton.addEventListener('click', () => showUserInfo(user));
+            actionCell.appendChild(viewButton);
         }
-
-        const pageLink = document.createElement('a');
-        pageLink.classList.add('page-link');
-        pageLink.href = '#';
-        pageLink.innerHTML = i;
-        pageLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            currentPage = i;
-            updateTable(data);
-            setupPagination(data);
-        });
-
-        pageItem.appendChild(pageLink);
-        pagination.appendChild(pageItem);
     }
-}
+    
 
-function filterTable() {
-    const filterCardID = document.getElementById('filterCardID').value.toLowerCase();
-    const filterConfidence = document.getElementById('filterConfidence').value.toLowerCase();
+    function filterTable() {
+        const filterCardID = document.getElementById('filterCardID').value.toUpperCase();
+        const filterDriverContact = document.getElementById('filterDriverContact').value.toUpperCase();
 
-    fetch('/api/data')
-        .then(response => response.json())
-        .then(data => {
-            const filteredData = data.filter(row => {
-                const cardIDMatch = row.card_id.toLowerCase().includes(filterCardID);
-                const confidenceMatch = row.confidence.toLowerCase().includes(filterConfidence);
-                return cardIDMatch && confidenceMatch;
+        userData = userData.filter(user => 
+            user.car_id.toUpperCase().includes(filterCardID) &&
+            user.driver_contact.toUpperCase().includes(filterDriverContact)
+        );
+
+        currentPage = 1;
+        displayTableData();
+        paginateTable();
+    }
+
+    function paginateTable() {
+        const pagination = document.getElementById('pagination');
+        pagination.innerHTML = '';
+
+        const totalPages = Math.ceil(userData.length / rowsPerPage);
+
+        for (let i = 1; i <= totalPages; i++) {
+            let li = document.createElement('li');
+            li.classList.add('page-item');
+            if (i === currentPage) li.classList.add('active');
+
+            let a = document.createElement('a');
+            a.classList.add('page-link');
+            a.textContent = i;
+            a.setAttribute('href', '#');
+            a.addEventListener('click', function (e) {
+                e.preventDefault();
+                currentPage = i;
+                displayTableData();
+                paginateTable();
             });
-            updateTable(filteredData);
-            setupPagination(filteredData);
-        })
-        .catch(error => console.error('Error fetching data:', error));
-}
 
-function viewUser(card_id) {
-    fetch(`/api/car/${card_id}`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.error) {
-                alert(data.error);
-            } else {
-                const modalBody = document.getElementById('modalBody');
-                modalBody.innerHTML = `
-                    <p><strong>Type:</strong> ${data.type}</p>
-                    <p><strong>Driver:</strong> ${data.driver}</p>
-                    <p><strong>Year:</strong> ${data.year}</p>
-                `;
-                $('#userInfoModal').modal('show');
-            }
-        })
-        .catch(error => console.error('Error fetching car information:', error));
-}
-
-function printRow(button) {
-    const row = button.parentNode.parentNode;
-    const rowData = [];
-    for (let i = 0; i < row.cells.length - 1; i++) {
-        rowData.push(row.cells[i].innerText);
+            li.appendChild(a);
+            pagination.appendChild(li);
+        }
     }
-    const printWindow = window.open('', '', 'height=400,width=600');
-    printWindow.document.write('<html><head><title>Print Data</title></head><body><pre>' + rowData.join('\n') + '</pre></body></html>');
-    printWindow.document.close();
-    printWindow.print();
-}
+
+    function showUserInfo(user) {
+        const modalBody = document.getElementById('modalBody');
+        modalBody.innerHTML = `
+            <p>Car ID: ${user.car_id}</p>
+            <p>Driver Contact: ${user.contact}</p>
+            <p>Drowsiness State: ${user.drowsiness_state}</p>
+            <p>Time Detected: ${user.time_detected}</p>
+            <p>Duration of Drowsiness (min): ${user.drowsiness_duration_minutes}</p>
+            <p>Device Uptime (min): ${user.uptime_minutes}</p>
+        `;
+        $('#userInfoModal').modal('show');
+    }
+
+    function printTable() {
+        const divToPrint = document.getElementById('userTable');
+        const newWin = window.open('');
+        newWin.document.write('<html><head><title>Print</title>');
+        newWin.document.write('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">');
+        newWin.document.write('</head><body>');
+        newWin.document.write('<table class="table table-bordered">');
+        newWin.document.write(divToPrint.innerHTML);
+        newWin.document.write('</table></body></html>');
+        newWin.document.close();
+        newWin.print();
+    }
+
+    document.getElementById('filterCardID').addEventListener('input', filterTable);
+    document.getElementById('filterDriverContact').addEventListener('input', filterTable);
+    document.querySelector('.btn.btn-primary').addEventListener('click', printTable);
+
+    fetchData();
+});

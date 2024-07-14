@@ -1,0 +1,59 @@
+[
+    {
+        "drowsiness_state": "Drowsy", 
+        "car_id": "02:91:52:01:33:cc-2534", 
+        "contact": "0244567890", 
+        "time_detected": "2024-07-13 23:43:27", 
+        "uptime_minutes": "0.12", 
+        "drowsiness_duration_minutes": "0.00"
+    },
+    {
+        "drowsiness_state": "Drowsy", 
+        "car_id": "03:81:62:02:44:dd-4535", 
+        "contact": "0244567891", 
+        "time_detected": "2024-07-13 23:43:28", 
+        "uptime_minutes": "1.15", 
+        "drowsiness_duration_minutes": "0.01"
+    },
+    {
+        "drowsiness_state": "Drowsy", 
+        "car_id": "04:71:72:03:55:ee-5636", 
+        "contact": "0244567892", 
+        "time_detected": "2024-07-13 23:43:29", 
+        "uptime_minutes": "0.15", 
+        "drowsiness_duration_minutes": "0.03"
+    },
+    {
+        "drowsiness_state": "Drowsy", 
+        "car_id": "05:61:82:04:66:ff-6737", 
+        "contact": "0244567893", 
+        "time_detected": "2024-07-13 23:43:31", 
+        "uptime_minutes": "0.18", 
+        "drowsiness_duration_minutes": "0.07"
+    },
+    {
+        "drowsiness_state": "Drowsy", 
+        "car_id": "06:51:92:05:77:gg-7838", 
+        "contact": "0244567894", 
+        "time_detected": "2024-07-13 23:43:32", 
+        "uptime_minutes": "0.20", 
+        "drowsiness_duration_minutes": "0.02"
+    },
+    {
+        "drowsiness_state": "Drowsy", 
+        "car_id": "07:41:02:06:88:hh-8939", 
+        "contact": "0244567895", 
+        "time_detected": "2024-07-13 23:43:33", 
+        "uptime_minutes": "0.22", 
+        "drowsiness_duration_minutes": "0.10"
+    },
+    {
+        "drowsiness_state": "Drowsy", 
+        "car_id": "08:31:12:07:99:ii-9940", 
+        "contact": "0244567896", 
+        "time_detected": "2024-07-13 23:43:35", 
+        "uptime_minutes": "0.25", 
+        "drowsiness_duration_minutes": "0.00"
+    }
+]
+

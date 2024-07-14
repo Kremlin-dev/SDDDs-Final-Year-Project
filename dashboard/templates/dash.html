@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="../static/css/styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container-fluid">
-        <div class="row">
+        <div class="row no-gutters">
             <div class="col-3 sidebar">
                 <h2>SDDDS</h2>
                 <ul class="nav flex-column">
@@ -44,22 +44,28 @@
                 <div class="container mt-4">
                     <h3>Users</h3>
                     <div class="mb-3">
-                        <label for="filterCardID">Filter by Card ID:</label>
+                        <label for="filterCardID">Filter by Car ID:</label>
                         <input type="text" id="filterCardID" class="form-control" oninput="filterTable()">
                     </div>
                     <div class="mb-3">
-                        <label for="filterConfidence">Filter by Confidence:</label>
-                        <input type="text" id="filterConfidence" class="form-control" oninput="filterTable()">
+                        <label for="filterDriverContact">Filter by Driver Contact:</label>
+                        <input type="text" id="filterDriverContact" class="form-control" oninput="filterTable()">
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div>
+                            <button class="btn btn-primary" onclick="printTable()">Print All</button>
+                        </div>
+                        <ul class="pagination" id="pagination"></ul>
                     </div>
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>Card ID</th>
-                                <th>Confidence</th>
-                                <th>Location</th>
-                                <th>Time Moved</th>
+                                <th>Car ID</th>
+                                <th>Driver Contact</th>
                                 <th>Drowsiness State</th>
-                                <th>Contact</th>
+                                <th>Time Detected</th>
+                                <th>Duration of Drowsiness (min)</th>
+                                <th>Device Uptime (min)</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -67,7 +73,6 @@
                             <!-- Dynamic rows will be added here -->
                         </tbody>
                     </table>
-                    <ul class="pagination" id="pagination"></ul>
                 </div>
             </div>
         </div>
@@ -90,7 +95,7 @@
         </div>
     </div>
 
-    <script src="../static/js/script.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
