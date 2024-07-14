@@ -1,16 +1,32 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, redirect, url_for
 import json
 import os
+from werkzeug.security import check_password_hash
 
 app = Flask(__name__)
 
-# File path for storing data
+USER_DATA_FILE = 'users.json'
 DATA_FILE = 'data.txt'
 
-# Ensure the data file exists
+if not os.path.exists(USER_DATA_FILE):
+    default_users = [
+        {
+            'email': 'admin@gmail.com',
+            'password': 'hashed_password_here'  
+        }
+    ]
+    with open(USER_DATA_FILE, 'w') as f:
+        json.dump(default_users, f)
+
 if not os.path.exists(DATA_FILE):
     with open(DATA_FILE, 'w') as f:
         f.write('[]')
+
+@app.route('/')
+@app.route('/login')
+def login_page():
+    return render_template('login.html')
+
 @app.route('/dashboard')
 def dashboard():
     return render_template('dash.html')
@@ -22,17 +38,14 @@ def receive_data():
         if data:
             print("Data received:", data)
 
-            # Read existing data from the file
             try:
                 with open(DATA_FILE, 'r') as f:
                     current_data = json.load(f)
             except json.JSONDecodeError:
                 current_data = []
 
-            # Append the new data
             current_data.append(data)
 
-            # Write the updated data back to the file
             with open(DATA_FILE, 'w') as f:
                 json.dump(current_data, f)
 
@@ -46,16 +59,37 @@ def receive_data():
 @app.route('/api/data', methods=['GET'])
 def get_data():
     try:
-        # Read data from the file
         with open(DATA_FILE, 'r') as f:
             current_data = json.load(f)
 
         return jsonify(current_data), 200
     except Exception as e:
         print(f"Error occurred: {e}")
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/login', methods=['POST'])
+def login():
+    try:
+        data = request.get_json()
+        print(data)
+        email = data.get('email')
+        password = data.get('password')
+
+        with open(USER_DATA_FILE, 'r') as f:
+            users = json.load(f)
+
+        user = next((user for user in users if user['email'] == email), None)
+
+        if user and user['password'] ==password:
+            return jsonify({"success": True, "message": "Login successful"}), 200
+        else:
+            return jsonify({"success": False, "message": "Invalid email or password"}), 401
+    except Exception as e:
+        print(f"Error occurred: {e}")
+        return jsonify({"error": str(e)}), 500
+
 @app.route('/logout')
 def logout():
-    # Implement logout logic here
     return 'Logged out successfully'
 
 if __name__ == '__main__':

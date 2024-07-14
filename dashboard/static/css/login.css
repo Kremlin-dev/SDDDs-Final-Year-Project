@@ -1,0 +1,52 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f6f9;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* More subtle shadow */
+    border-radius: 10px; /* Added rounded corners */
+    overflow: hidden; /* Ensure rounded corners on all elements */
+}
+
+.card-header {
+    background-color: #007bff;
+    color: #fff;
+    border-bottom: none;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    padding: 10px 20px; /* Increased padding */
+    font-size: 16px; /* Increased font size */
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.form-control {
+    border-radius: 5px; /* Slightly more rounded */
+    padding: 10px; /* Increased padding */
+    font-size: 16px; /* Increased font size */
+}
+
+.form-group label {
+    font-weight: bold;
+    font-size: 14px; 
+}
+
+.card-body {
+    padding: 30px; 
+}
+
+.card-header h3 {
+    font-size: 24px; 
+}
