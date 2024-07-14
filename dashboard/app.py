@@ -23,6 +23,10 @@ if not os.path.exists(DATA_FILE):
         f.write('[]')
 
 @app.route('/')
+@app.route('/index')
+def index():
+    return render_template('home.html')
+
 @app.route('/login')
 def login_page():
     return render_template('login.html')
@@ -90,6 +94,7 @@ def login():
 
 @app.route('/logout')
 def logout():
+    return redirect(url_for('index'))
     return 'Logged out successfully'
 
 if __name__ == '__main__':

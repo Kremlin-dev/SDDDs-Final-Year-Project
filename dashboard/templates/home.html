@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">SDDDS</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+                <a class="btn btn-primary ml-3" href="{{ url_for('login') }}">Login as Admin</a>
+            </div>
+        </nav>
+        <div id="home" class="hero-section">
+            <div class="overlay"></div>
+            <div class="container text-center text-white">
+                <h1 class="display-4">Fast & Safe Transport</h1>
+                <p class="lead">We provide safe quality delivery of you and your goods to your preffred destination.</p>
+                <a class="btn btn-danger btn-lg" href="#">Transport Now</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="features" class="py-5 text-center">
+        <div class="container">
+            <h2 class="mb-4">Our Features</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <div class="card-body">
+                            <i class="fas fa-truck fa-3x mb-3"></i>
+                            <h5 class="card-title">Fast Delivery</h5>
+                            <p class="card-text">Quick and efficient delivery services to ensure your goods arrive on time.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <div class="card-body">
+                            <i class="fas fa-shield-alt fa-3x mb-3"></i>
+                            <h5 class="card-title">Safe & Secure</h5>
+                            <p class="card-text">Our top priority is the safety and security of yourself and your  goods.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <div class="card-body">
+                            <i class="fas fa-globe fa-3x mb-3"></i>
+                            <h5 class="card-title">Global Reach</h5>
+                            <p class="card-text">We offer services to various locations around the world.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-5 bg-light text-center">
+        <div class="container">
+            <h2 class="mb-4">About Us</h2>
+            <p>Welcome to Smart Transport Company, your trusted partner in efficient and reliable transportation solutions. We specialize in fast and secure delivery services, ensuring you and your goods reach their destination on time and safely. Our global reach allows us to offer services to various locations around the world, with a commitment to safety and sustainability, and excellence.</p>
+    </section>
+
+    <section id="contact" class="py-5 text-center">
+        <div class="container">
+            <h2 class="mb-4">Contact Us</h2>
+            <form>
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <input type="text" class="form-control" placeholder="Your Name" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <input type="email" class="form-control" placeholder="Your Email" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>
