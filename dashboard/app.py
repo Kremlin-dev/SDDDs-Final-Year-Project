@@ -1,9 +1,10 @@
 from flask import Flask, request, jsonify, render_template, redirect, url_for
+from flask_socketio import SocketIO, emit
 import json
 import os
-from werkzeug.security import check_password_hash
 
 app = Flask(__name__)
+socketio = SocketIO(app)
 
 USER_DATA_FILE = 'users.json'
 DATA_FILE = 'data.txt'
@@ -53,6 +54,8 @@ def receive_data():
             with open(DATA_FILE, 'w') as f:
                 json.dump(current_data, f)
 
+            socketio.emit('new_data', data)
+
             return jsonify({"message": "Data received and saved successfully"}), 200
         else:
             return jsonify({"error": "No data received"}), 400
@@ -84,7 +87,7 @@ def login():
 
         user = next((user for user in users if user['email'] == email), None)
 
-        if user and user['password'] ==password:
+        if user and user['password'] == password:
             return jsonify({"success": True, "message": "Login successful"}), 200
         else:
             return jsonify({"success": False, "message": "Invalid email or password"}), 401
@@ -95,7 +98,6 @@ def login():
 @app.route('/logout')
 def logout():
     return redirect(url_for('index'))
-    return 'Logged out successfully'
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    socketio.run(app, host='0.0.0.0', port=5000, debug=True)

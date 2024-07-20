@@ -8,6 +8,13 @@ body {
 .navbar-brand {
     font-size: 1.5rem;
     font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand img {
+    margin-right: 10px;
+    height: 40px; /* Adjust the height as necessary */
 }
 
 .navbar-nav .nav-link {
@@ -31,7 +38,7 @@ body {
 .header {
     position: relative;
     height: 100vh;
-    background: url('../images/bbus.jpeg') no-repeat center center/cover;
+    background: url('../images/car.jpeg') no-repeat center center/cover;
     background-attachment: fixed;
     background-size: cover;
     filter: brightness(0.7);
@@ -92,6 +99,7 @@ section p {
 #features h2{
     padding-top: 20px;
 }
+
 #features .card {
     margin-bottom: 30px;
     border: none;

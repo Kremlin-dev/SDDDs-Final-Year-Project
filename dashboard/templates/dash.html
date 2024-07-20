@@ -7,13 +7,21 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.min.js"></script>
 </head>
 <body>
+    <div id="notification-container" style="position: fixed; top: 10px; right: 10px; z-index: 1000;"></div>
+    <audio id="notification-sound" src="../static/audio/notification.mp3" preload="auto"></audio>
     <div class="container-fluid">
-        <div class="row no-gutters">
-            <div class="col-3 sidebar">
-                <h2>SDDDS</h2>
-                <ul class="nav flex-column">
+        <nav class="navbar navbar-expand-lg navbar-light bg-custom">
+            <a class="navbar-brand" href="#">
+                <img src="path/to/logo.png" alt="Logo" style="height: 40px;"> <!-- Replace with your logo path -->
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         <a class="nav-link active" href="#">Home</a>
                     </li>
@@ -24,61 +32,48 @@
                         <a class="nav-link" href="#">Help</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">View Site</a>
+                        <a class="nav-link" href="#"><i class="fas fa-bell"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
                     </li>
                 </ul>
             </div>
-
-            <div class="col-9 main-content">
-                <nav class="navbar navbar-expand-lg navbar-light">
-                    <a class="navbar-brand" href="#">Admin Dashboard</a>
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fas fa-bell"></i></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
-                        </li>
-                    </ul>
-                </nav>
-                <div class="container mt-4">
-                    <h3>Users</h3>
-                    <div class="mb-3">
-                        <label for="filterCardID">Filter by Car ID:</label>
-                        <input type="text" id="filterCardID" class="form-control" oninput="filterTable()">
-                    </div>
-                    <div class="mb-3">
-                        <label for="filterDriverContact">Filter by Driver Contact:</label>
-                        <input type="text" id="filterDriverContact" class="form-control" oninput="filterTable()">
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div>
-                            <button class="btn btn-primary" onclick="printTable()">Print All</button>
-                        </div>
-                        <ul class="pagination" id="pagination"></ul>
-                    </div>
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Car ID</th>
-                                <th>Driver Contact</th>
-                                <th>Drowsiness State</th>
-                                <th>Time Detected</th>
-                                <th>Duration of Drowsiness (min)</th>
-                                <th>Device Uptime (min)</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="userTable">
-                            <!-- Dynamic rows will be added here -->
-                        </tbody>
-                    </table>
-                </div>
+        </nav>
+        <div class="container mt-4">
+            <h3>Users</h3>
+            <div class="mb-3">
+                <label for="filterCardID">Filter by Car ID:</label>
+                <input type="text" id="filterCardID" class="form-control" oninput="filterTable()">
             </div>
+            <div class="mb-3">
+                <label for="filterDriverContact">Filter by Driver Contact:</label>
+                <input type="text" id="filterDriverContact" class="form-control" oninput="filterTable()">
+            </div>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                    <button class="btn btn-primary" onclick="printTable()">Print All</button>
+                </div>
+                <ul class="pagination" id="pagination"></ul>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Car ID</th>
+                        <th>Driver Contact</th>
+                        <th>Drowsiness State</th>
+                        <th>Time Detected</th>
+                        <th>Duration of Drowsiness (min)</th>
+                        <th>Device Uptime (min)</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="userTable">
+                    <!-- Dynamic rows will be added here -->
+                </tbody>
+            </table>
         </div>
     </div>
-
-    <!-- Modal -->
     <div class="modal fade" id="userInfoModal" tabindex="-1" aria-labelledby="userInfoModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -89,12 +84,10 @@
                     </button>
                 </div>
                 <div class="modal-body" id="modalBody">
-                    <!-- Additional information will be populated here -->
                 </div>
             </div>
         </div>
     </div>
-
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
